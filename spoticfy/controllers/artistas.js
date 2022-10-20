@@ -1,82 +1,95 @@
-const conn = require("../db");
+const conn = require("../db")
+
+// obtiene todos los artistas
 
 const getArtistas = (_, res) => {
-    // Completar con la consulta que devuelve todos los artistas
-    // Recordar que los parámetros de una consulta GET se encuentran en req.params
-    // Deberían devolver los datos de la siguiente forma:
-    /*
-        [
-            {
-                "id": "Id del artista",
-                "nombre": "Nombre del artista"
-            },
-            {
-                "id": "Id del artista",
-                "nombre": "Nombre del artista"
-            },
-            ...
-        ]
-    */
-};
+  const sql = "SELECT * FROM artistas"
+  conn.query(sql, (error, results) => {
+    if (error) {
+      res.status(500).send("Hubo un error")
+    } else {
+      res.json(results)
+    }
+  })
+}
 
 const getArtista = (req, res) => {
-    // Completar con la consulta que devuelve un artista
-    // Recordar que los parámetros de una consulta GET se encuentran en req.params
-    // Deberían devolver los datos de la siguiente forma:
-    /*
-        {
-            "id": "Id del artista",
-            "nombre": "Nombre del artista"
-        }
-    */
-};
+  const { id } = req.params
+  const sql = `SELECT * FROM artistas WHERE id = ?`
+  conn.query(sql, [id], (error, results) => {
+    if (error) {
+      res.status(500).send("Hubo un error")
+    } else {
+      res.json(results)
+    }
+  })
+}
 
 const createArtista = (req, res) => {
-    // Completar con la consulta que crea un artista
-    // Recordar que los parámetros de una consulta POST se encuentran en req.body
-    // Deberían recibir los datos de la siguiente forma:
-    /*
-        {
-            "nombre": "Nombre del artista",
-        }
-    */
-};
+  const sql = "INSERT INTO artistas SET ?"
+  conn.query(sql, req.body, (error, results) => {
+    if (error) {
+      res.status(500).send("Hubo un error")
+    } else {
+      res.json(results)
+    }
+  })
+}
 
 const updateArtista = (req, res) => {
-    // Completar con la consulta que actualiza un artista
-    // Recordar que en este caso tienen parámetros en req.params (el id) y en req.body (los demás datos)
-    // Deberían recibir los datos de la siguiente forma:
-    /*
-        {
-            "nombre": "Nombre del artista"
-        }
-    */
-};
+  const { id } = req.params
+  const sql = "UPDATE artistas SET ? WHERE id = ?"
+  conn.query(sql, [req.body, id], (error, results) => {
+    if (error) {
+      res.status(500).send("Hubo un error")
+    } else {
+      res.json(results)
+    }
+  })
+}
 
 const deleteArtista = (req, res) => {
-    // Completar con la consulta que elimina un artista
-    // Recordar que los parámetros de una consulta DELETE se encuentran en req.params
-};
+  const { id } = req.params
+  const sql = "DELETE FROM artistas WHERE id = ?"
+  conn.query(sql, [id], (error, results) => {
+    if (error) {
+      res.status(500).send("Hubo un error")
+    } else {
+      res.json(results)
+    }
+  })
+}
 
 const getAlbumesByArtista = (req, res) => {
-    // Completar con la consulta que devuelve las canciones de un artista 
-    // Recordar que los parámetros de una consulta GET se encuentran en req.params
-    // Deberían devolver los datos de la misma forma que getAlbumes
-};
+  const { id } = req.params
+  const sql = `SELECT * FROM albumes WHERE artista_id = ?`
+  conn.query(sql, [id], (error, results) => {
+    if (error) {
+      res.status(500).send("Hubo un error")
+    } else {
+      res.json(results)
+    }
+  })
+}
 
 const getCancionesByArtista = (req, res) => {
-    // Completar con la consulta que devuelve las canciones de un artista
-    // (tener en cuenta que las canciones están asociadas a un álbum, y los álbumes a un artista)
-    // Recordar que los parámetros de una consulta GET se encuentran en req.params
-    // Deberían devolver los datos de la misma forma que getCanciones
-};
+  const { id } = req.params
+  const sql = `SELECT * FROM canciones WHERE artista_id = ?`
+  conn.query(sql, [id], (error, results) => {
+    if (error) {
+      res.status(500).send("Hubo un error")
+    } else {
+      res.json(results)
+    }
+  })
+}
 
 module.exports = {
-    getArtistas,
-    getArtista,
-    createArtista,
-    updateArtista,
-    deleteArtista,
-    getAlbumesByArtista,
-    getCancionesByArtista,
-};
+  getArtistas,
+  getArtista,
+  createArtista,
+  updateArtista,
+  deleteArtista,
+  getAlbumesByArtista,
+  getCancionesByArtista,
+}
