@@ -40,7 +40,7 @@ app.get("/canciones/:id", canciones.getCancion)
 app.post("/canciones", canciones.createCancion)
 app.put("/canciones/:id", canciones.updateCancion)
 app.delete("/canciones/:id", canciones.deleteCancion)
-app.get("/canciones/:id/reproducciones", canciones.reproducirCancion)
+app.get("/canciones/:id/reproducir", canciones.reproducirCancion)
 
 app.listen(port, () => {
   console.log(`SpoTICfy API listening at http://localhost:${port}`)

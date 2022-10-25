@@ -60,10 +60,10 @@ const deleteAlbum = (req, res) => {
 
 const getCancionesByAlbum = (req, res) => {
   const { id } = req.params
-  const sql = `SELECT * FROM canciones WHERE album_id = ?`
+  const sql = `SELECT * FROM canciones WHERE album = ?`
   conn.query(sql, [id], (error, results) => {
     if (error) {
-      res.status(404).send("Hubo un error")
+      res.status(404, error)
     } else {
       res.json(results)
     }

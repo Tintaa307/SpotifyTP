@@ -62,7 +62,7 @@ const deleteArtista = (req, res) => {
 
 const getAlbumesByArtista = (req, res) => {
   const { id } = req.params
-  const sql = `SELECT * FROM albumes WHERE artista_id = ?`
+  const sql = `SELECT * FROM albumes WHERE artista = ?`
   conn.query(sql, [id], (error, results) => {
     if (error) {
       res.status(404).send("Hubo un error")
@@ -74,7 +74,7 @@ const getAlbumesByArtista = (req, res) => {
 
 const getCancionesByArtista = (req, res) => {
   const { id } = req.params
-  const sql = `SELECT * FROM canciones WHERE artista_id = ?`
+  const sql = `SELECT * FROM canciones INNER JOIN albumes ON albumes.id = ? WHERE canciones.album = canciones.id`
   conn.query(sql, [id], (error, results) => {
     if (error) {
       res.status(404).send("Hubo un error")

@@ -98,13 +98,13 @@ DELETE http://localhost:3000/canciones/3 HTTP/1.1
 
 GET http://localhost:3000/canciones/1/reproducir HTTP/1.1
 
-### Obtener canciones de un album
+### Obtener canciones de un album =>
 
 GET http://localhost:3000/albumes/1/canciones HTTP/1.1
 
 ### Obtener canciones de un artista
 
-GET http://localhost:3000/artistas/1/canciones HTTP/1.1
+GET http://localhost:3000/artistas/2/canciones HTTP/1.1
 
 ### Obtener albumes de un artista
 
